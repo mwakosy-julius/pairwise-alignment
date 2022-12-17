@@ -1,0 +1,21 @@
+🧬 About this web app
+Global and local alignment between two DNA strings (pairwise alignment).
+
+⚙️ How it works
+Global alignment is an end-to-end alignment based on Needleman-Wunsch algorithm, which searches for the optimal global alignment (highest score) between two sequences.
+Local alignment identify regions of similarity between two sequences based on Smith-Waterman algorithm, which searches for the optimal alignment (highest score) between two subsequences.
+
+🔢 Scoring
+The scores for match and mismatch were based on nucleotide substitution model K2P (Kimura 2-parameters) which allows for different rates of transition and transversion.
+> Match = +4, for similarity
+> Mismatch = -1, for transition
+> Mismatch = -2, for transversion
+> Gap = -3, for insertion or deletion
+
+📊 Nucleotides content
+This web app also counts the amount and percentage of Adenin, Cytosin, Guanin and Thymin and GC-Content from each sequence.
+
+📚 References
+Needleman, S.B. and Wunsch, C.D. 1970. A general method applicable to the search for similarities in the amino acid sequences of two proteins. J. Mol. Bio., 48:443-453.
+Kimura, M. 1980. A simple method for estimating evolutionary rates of base substitutions through comparative studies of nucleotide sequences. J. Mol. Evol., 16:111-120.
+Smith, T.F., Waterman, M.S. 1981. Identification of common molecular subsequences. J. Mol. Biol., 147:195-197.
