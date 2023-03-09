@@ -5,15 +5,15 @@ import altair as alt
 from altair import *
 from streamlit_lottie import st_lottie
 
-st.set_page_config(page_title="Final Year Project", page_icon=":tada:", layout="wide")
+# st.set_page_config(page_title="Final Year Project", page_icon=":tada:", layout="wide")
 
-def load_lottieurl(url):
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    return r.json()
+# def load_lottieurl(url):
+#     r = requests.get(url)
+#     if r.status_code != 200:
+#         return None
+#     return r.json()
 
-coding_lottie = load_lottieurl("https://assets5.lottiefiles.com/packages/lf20_fcfjwiyb.json")
+# coding_lottie = load_lottieurl("https://assets5.lottiefiles.com/packages/lf20_fcfjwiyb.json")
 
 def format_sequence(sequence): 
     sequence = sequence.upper()
@@ -364,7 +364,7 @@ with st.container():
 
     with right_column:
         df = table()
-        st_lottie(coding_lottie, height=300, key="coding")
+#         st_lottie(coding_lottie, height=300, key="coding")
         st.dataframe(df, use_container_width = True)
         try:
             ds = pd.DataFrame([
