@@ -22,18 +22,18 @@ def format_sequence(sequence):
         sequence = sequence.splitlines()
         sequence = sequence[1:]
         sequence = "".join(sequence).strip()
-        sequence = "*" + sequence
+        #sequence = "*" + sequence
         
     else:
         sequence = sequence.splitlines()
         sequence = "".join(sequence).strip()
-        sequence = "*" + sequence 
+        #sequence = "*" + sequence 
         
     return sequence
 
 
 def is_dna(seq):
-    if set(seq).issubset({"A", "C", "G", "T", "*"}):
+    if set(seq).issubset({"A", "C", "G", "T"}):
         return True
     else:
         return False
@@ -258,28 +258,30 @@ def local_alignment(seq1, seq2, score_matrix, matrix_path, matrix_subs):
 
     return match, mismatch, gap, score_final, ali_seq1, ali_seq2
 
-def percentage_nucleotide(sequence):
-    A = sequence.count('A')
-    C = sequence.count('A')
-    G = sequence.count('A')
-    T = sequence.count('A')
-    total = A+G+C+T
+# def percentage_nucleotide(sequence):
+#     A = sequence.count('A')
+#     C = sequence.count('A')
+#     G = sequence.count('A')
+#     T = sequence.count('A')
+#     total = A+G+C+T
 
-    percentage_A = A/total*100
-    percentage_C = C/total*100
-    percentage_G = G/total*100
-    percentage_T = T/total*100
+#     percentage_A = A/total*100
+#     percentage_C = C/total*100
+#     percentage_G = G/total*100
+#     percentage_T = T/total*100
 
-    percentages = [percentage_A, percentage_C, percentage_G, percentage_T]
-    return percentages
+#     percentages = [percentage_A, percentage_C, percentage_G, percentage_T]
+#     return percentages
 
 def dataframe():
     try:
         d = dict([
-        ('A ', [sequence1.count('A'), sequence2.count('A')]),
-        ('G ', [sequence1.count('G'), sequence2.count('G')]),
-        ('C ', [sequence1.count('C'), sequence2.count('C')]),
-        ('T ', [sequence1.count('T'), sequence2.count('T')])
+        ('A ', [sequence1.upper().count('A'), sequence2.upper().count('A')]),
+        ('G ', [sequence1.upper().count('G'), sequence2.upper().count('G')]),
+        ('C ', [sequence1.upper().count('C'), sequence2.upper().count('C')]),
+        ('T ', [sequence1.upper().count('T'), sequence2.upper().count('T')]),
+        ('Total', [(sequence1.upper().count('A')+sequence1.upper().count('G')+sequence1.upper().count('C')+sequence1.upper().count('T')),
+         (sequence2.upper().count('A')+sequence2.upper().count('G')+sequence2.upper().count('C')+sequence2.upper().count('T'))])
         ])
     except:
         ZeroDivisionError
@@ -349,7 +351,18 @@ with st.container():
                     
                     similarity = round(match/(match+mismatch+gap)*100)
 
-                    st.markdown(f"(1) {ali_seq1}<br>(2) {ali_seq2}", unsafe_allow_html=True)
+                    b = 0
+                    m = 100
+                    l = 0
+                    
+                    while l < (len(ali_seq1)//m)+1:
+                        st.markdown(f"(1) {ali_seq1[b:m+1]}<br>(2) {ali_seq2[b:m+1]}", unsafe_allow_html=True)
+                        l+=1
+                        b+=m
+                        m+=m
+                    else: 
+                        pass
+
                     st.markdown(f"""<p><i>
                     Matches: {match}<br>
                     Mismatches: {mismatch}<br>
@@ -368,14 +381,14 @@ with st.container():
         st.dataframe(df, use_container_width = True)
         try:
             ds = pd.DataFrame([
-                ['A', sequence1.count('A'), 'seq1'],
-                ['C', sequence1.count('C'), 'seq1'],
-                ['G', sequence1.count('G'), 'seq1'],
-                ['T', sequence1.count('T'), 'seq1'],
-                ['A', sequence2.count('A'), 'seq2'],
-                ['C', sequence2.count('C'), 'seq2'],
-                ['G', sequence2.count('G'), 'seq2'],
-                ['T', sequence2.count('T'), 'seq2']],
+                ['A', sequence1.upper().count('A'), 'seq1'],
+                ['C', sequence1.upper().count('C'), 'seq1'],
+                ['G', sequence1.upper().count('G'), 'seq1'],
+                ['T', sequence1.upper().count('T'), 'seq1'],
+                ['A', sequence2.upper().count('A'), 'seq2'],
+                ['C', sequence2.upper().count('C'), 'seq2'],
+                ['G', sequence2.upper().count('G'), 'seq2'],
+                ['T', sequence2.upper().count('T'), 'seq2']],
                 columns = ['Nucleotide', 'Percentage_Count', 'Sequences']
             )
 
