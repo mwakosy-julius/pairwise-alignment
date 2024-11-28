@@ -3,17 +3,17 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 from altair import *
-# from streamlit_lottie import st_lottie
+from streamlit_lottie import st_lottie
 
-st.set_page_config(page_title="Final Year Project", page_icon=":tada:", layout="wide")
+st.set_page_config(page_title="Pairwise Alignment", page_icon=":tada:", layout="wide")
 
-# def load_lottieurl(url):
-#     r = requests.get(url)
-#     if r.status_code != 200:
-#         return None
-#     return r.json()
+def load_lottieurl(url):
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
 
-# coding_lottie = load_lottieurl("https://assets5.lottiefiles.com/packages/lf20_fcfjwiyb.json")
+coding_lottie = load_lottieurl("https://assets5.lottiefiles.com/packages/lf20_fcfjwiyb.json")
 
 def format_sequence(sequence): 
     sequence = sequence.upper()
@@ -325,8 +325,8 @@ with st.container():
         
         type_of_alignment = st.radio("Select:", ["Global_Alignment", "Local_Alignment"])
 
-        sequence1 = st.text_area(label="sequence1", height=20, key=1)
-        sequence2 = st.text_area(label="sequence2", height=20, key=2)
+        sequence1 = st.text_area(label="sequence1", height=68, key=1)
+        sequence2 = st.text_area(label="sequence2", height=68, key=2)
 
         if sequence1 and sequence2:        
             seq1 = format_sequence(sequence1)
@@ -377,7 +377,7 @@ with st.container():
 
     with right_column:
         df = table()
-        # st_lottie(coding_lottie, height=300, key="coding")
+        st_lottie(coding_lottie, height=300, key="coding")
         st.dataframe(df, use_container_width = True)
         try:
             ds = pd.DataFrame([
@@ -402,9 +402,8 @@ with st.container():
             color = Color('Sequences', scale=Scale(range=['#EA98D2', '#659CCA']))
             ).configure_view(
             strokeWidth=1.0,
-            height=200,
-            width=80
-                )
- 
+            ).properties(
+                height=200, 
+                width=80    
+            )
         st.altair_chart(bar_chart, use_container_width=False)
-        #st.bar_chart(df, x=df.columns[0], use_container_width=True)
